@@ -1,9 +1,7 @@
-import { MessageContextMenuCommandInteraction, REST, Routes, UserContextMenuCommandInteraction } from 'discord.js';
+import { REST, Routes } from 'discord.js';
 import { config } from 'dotenv'; 
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
-import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
-import type { CustomClientContextMenu, CustomClientSlashCommand } from './Typings/interfaces';
 
 config();
 
@@ -15,13 +13,13 @@ if (CLIENT_TOKEN == undefined) throw TypeError('CLIENT_TOKEN missing');
 
 const rest = new REST({ version: '10' }).setToken(CLIENT_TOKEN);
 
-const commands: any[] = [];
+const commands = [];
 const slashCommandsPath = join(__dirname, 'SlashCommands');
 const slashCommandFiles = readdirSync(slashCommandsPath).filter(file => file.endsWith('.ts'));
 
 for (const file of slashCommandFiles) {
   const filePath = join(slashCommandsPath, file);
-  const command = require(filePath).default as CustomClientSlashCommand;
+  const command = require(filePath).default;
   commands.push(command.data.toJSON());
 }
 
@@ -30,7 +28,7 @@ const contextMenuFiles = readdirSync(contextMenuPath).filter(file => file.endsWi
 
 for (const file of contextMenuFiles) {
   const filePath = join(contextMenuPath, file);
-  const command = require(filePath).default as CustomClientContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>;
+  const command = require(filePath).default;
   commands.push(command.data.toJSON());
 }
 

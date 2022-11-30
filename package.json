@@ -1,12 +1,10 @@
 {
   "scripts": {
-    "start": "npx nodemon index.ts",
-    "commands": "ts-node deploy-commands.ts"
+    "start": "npx nodemon index.js",
+    "commands": "node deploy-commands.js"
   },
   "dependencies": {
     "discord.js": "^14.6.0",
-    "dotenv": "^16.0.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.8.4"
+    "dotenv": "^16.0.3"
   }
 }

@@ -1,6 +1,4 @@
-import { CustomClientMessageCommand } from "../Typings/interfaces";
-
-const command:CustomClientMessageCommand = {
+const command = {
   name: 'ping',
   description: 'Says pong!',
   execute(client, message, args) {

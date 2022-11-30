@@ -1,14 +1,12 @@
-import { ButtonInteraction, CommandInteraction, Events, MessageContextMenuCommandInteraction, ModalSubmitInteraction, UserContextMenuCommandInteraction } from 'discord.js';
-import { CustomClientContextMenu, CustomClientEvent, CustomClientSlashCommand } from "../Typings/interfaces";
-import { CustomClient } from '../Typings/types';
+import { Events } from 'discord.js';
 
-const event:CustomClientEvent = {
+const event = {
   name: Events.InteractionCreate,
 	once: false,
-	async execute(client:CustomClient, interaction:CommandInteraction) {
+	async execute(client, interaction) {
 		if (interaction.isChatInputCommand()) {
-      const command = (interaction.client as CustomClient).slashCommands
-        .get(interaction.commandName) as CustomClientSlashCommand;
+      const command = interaction.client.slashCommands
+        .get(interaction.commandName);
 
       if (!command) return;
 
@@ -19,8 +17,8 @@ const event:CustomClientEvent = {
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
       }
     } else if (interaction.isUserContextMenuCommand()) {
-      const command = (interaction.client as CustomClient).contextMenuCommands
-        .get(interaction.commandName) as CustomClientContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>;
+      const command = interaction.client.contextMenuCommands
+        .get(interaction.commandName);
 
       if (!command) return;
 
@@ -31,8 +29,8 @@ const event:CustomClientEvent = {
         await interaction.reply({ content: `An Error Occured: \`${JSON.stringify(error)}\``, ephemeral: true });
       }
     } else if (interaction.isModalSubmit()) {
-      const int = interaction as ModalSubmitInteraction;
-      const command = (int.client as CustomClient)
+      const int = interaction;
+      const command = int.client
         .modals.get(int.customId);
       if (!command) return;
 
@@ -42,8 +40,8 @@ const event:CustomClientEvent = {
           console.error(error);
         }
     } else if (interaction.isButton()) {
-      const int = interaction as ButtonInteraction;
-      const command = (int.client as CustomClient)
+      const int = interaction;
+      const command = int.client
         .buttons.get(int.customId);
       if (!command) return;
 

@@ -9,5 +9,5 @@ export const byeButton = new ButtonBuilder()
   .setCustomId('bye')
   .setLabel('Bye')
   .setStyle(ButtonStyle.Danger)
-export const buttonRow = new ActionRowBuilder<ButtonBuilder>()
+export const buttonRow = new ActionRowBuilder()
   .addComponents(helloButton, byeButton);

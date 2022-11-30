@@ -6,8 +6,6 @@ import setupModalHandler from "./Handlers/modals";
 import setupButtonHandler from "./Handlers/buttons";
 import setupMessageCommandHandler from "./Handlers/messageCommands";
 
-import { CustomClient } from "./Typings/types";
-
 import { config } from "dotenv";
 config();
 
@@ -16,7 +14,7 @@ const { CLIENT_TOKEN } = process.env;
 
 const client = new Client({
 	intents: [Guilds, GuildMessages, GuildMembers, MessageContent]
-}) as CustomClient;
+});
 
 client.slashCommands = new Collection();
 client.messageCommands = new Collection();

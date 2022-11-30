@@ -1,9 +1,8 @@
 import { SlashCommandBuilder } from "discord.js";
-import { CustomClientSlashCommand } from "../Typings/interfaces";
 
 import { buttonRow } from "../Buttons/exampleButtonWithEvent";
 
-const command:CustomClientSlashCommand = {
+const command = {
   data: new SlashCommandBuilder()
     .setName('testbutton')
     .setDescription('Test out a button')

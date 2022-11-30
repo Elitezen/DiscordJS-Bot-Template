@@ -1,7 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
-import { CustomClientSlashCommand } from "../Typings/interfaces";
 
-const command:CustomClientSlashCommand = {
+const command = {
   data: new SlashCommandBuilder()
     .setName('ping')
     .setDescription('Test out a slash command')

@@ -1,7 +1,6 @@
-import { ActionRowBuilder, ModalActionRowComponentBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
-import { CustomClientModal } from "../Typings/interfaces";
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from "discord.js";
 
-// Look at SlashCommands/slashCommandWithModal.ts
+// Look at SlashCommands/slashCommandWithModal.js
 // To see how to show a modal
 
 const modalId = 'example_modal';
@@ -16,11 +15,11 @@ const modalDescription = new TextInputBuilder()
   .setRequired(true)
   .setPlaceholder("Hello World!")
   .setStyle(TextInputStyle.Paragraph);
-const actionRow = new ActionRowBuilder<ModalActionRowComponentBuilder>()
+const actionRow = new ActionRowBuilder()
   .addComponents(modalDescription);
 modal.addComponents(actionRow);
 
-const modalCommand:CustomClientModal = {
+const modalCommand = {
   customId: modalId,
   async execute(client, interaction) {
     const text = interaction.fields.getTextInputValue('text');

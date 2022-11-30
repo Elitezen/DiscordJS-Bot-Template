@@ -1,7 +1,6 @@
-import { ApplicationCommandType, ContextMenuCommandBuilder, UserContextMenuCommandInteraction } from "discord.js";
-import { CustomClientContextMenu } from "../Typings/interfaces";
+import { ApplicationCommandType, ContextMenuCommandBuilder } from "discord.js";
 
-const contextMenu:CustomClientContextMenu<UserContextMenuCommandInteraction> = {
+const contextMenu = {
   data: new ContextMenuCommandBuilder()
     .setName('Say Hello')
     .setType(ApplicationCommandType.User)

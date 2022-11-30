@@ -1,12 +1,9 @@
 import { join } from "path";
 import { readdirSync } from "fs";
-import { CustomClient } from "../Typings/types";
-import { CustomClientEvent } from "../Typings/interfaces";
-import { ClientEvents } from "discord.js";
 
 export default function setupEventHandler(
-	client: CustomClient,
-	rootPath: string
+	client,
+	rootPath
 ) {
 	const eventsPath = join(rootPath, "Events");
 	const eventFiles = readdirSync(eventsPath).filter(file =>
@@ -15,13 +12,13 @@ export default function setupEventHandler(
 
 	for (const file of eventFiles) {
 		const filePath = join(eventsPath, file);
-		const event = require(filePath).default as CustomClientEvent;
+		const event = require(filePath).default;
 		if (event.once) {
-			client.once(event.name as string, (...args) =>
+			client.once(event.name, (...args) =>
 				event.execute(client, ...args)
 			);
 		} else {
-			client.on(event.name as string, (...args) =>
+			client.on(event.name, (...args) =>
 				event.execute(client, ...args)
 			);
 		}
