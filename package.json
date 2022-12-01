@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "scripts": {
     "start": "npx nodemon index.ts",
     "commands": "ts-node deploy-commands.ts",
