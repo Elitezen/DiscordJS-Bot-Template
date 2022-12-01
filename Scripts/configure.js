@@ -13,6 +13,7 @@ async function start() {
 }
 
 async function getToken() {
+  console.log("\nFor pasting, If CTRL+V is not working: try right clicking in input fields.\n")
   const answers = await inquirer.prompt({
     name: 'token',
     type: 'input',
