@@ -49,7 +49,11 @@ async function createEnv() {
       process.exit(1);
     }
     
-    console.log('Success');
+    console.log(`
+      Success
+      npm run commands
+      npm start
+    `);
     process.exit(0);
   });
 }
