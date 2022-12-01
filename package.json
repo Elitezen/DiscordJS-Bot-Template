@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "npx nodemon index.js",
-    "commands": "node deploy-commands.js"
+    "commands": "node deploy-commands.js",
+    "configure": "node Scripts/configure.js"
   },
   "dependencies": {
     "discord.js": "^14.6.0",
