@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
 
 const args = process.argv.slice(2);
-const registerScope = args[0].toLowerCase();
+const registerScope = args[0]?.toLowerCase();
 
 config();
 
