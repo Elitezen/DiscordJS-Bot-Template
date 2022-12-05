@@ -2,15 +2,14 @@ import { MessageContextMenuCommandInteraction, REST, Routes, UserContextMenuComm
 import { config } from 'dotenv'; 
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';
-import type { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
 import type { CustomClientContextMenu, CustomClientSlashCommand } from './Typings/interfaces';
+
+const args = process.argv.slice(2);
+const registerScope = args[0].toLowerCase();
 
 config();
 
 const { CLIENT_ID, CLIENT_GUILD_ID, CLIENT_TOKEN } = process.env;
-
-if (CLIENT_ID == undefined) throw TypeError('CLIENT_ID missing');
-if (CLIENT_GUILD_ID == undefined) throw TypeError('CLIENT_GUILD_ID missing');
 if (CLIENT_TOKEN == undefined) throw TypeError('CLIENT_TOKEN missing');
 
 const rest = new REST({ version: '10' }).setToken(CLIENT_TOKEN);
@@ -34,6 +33,23 @@ for (const file of contextMenuFiles) {
   commands.push(command.data.toJSON());
 }
 
-rest.put(Routes.applicationGuildCommands(CLIENT_ID, CLIENT_GUILD_ID), { body: commands })
-	.then(_ => console.log(`Successfully registered ${commands.length} application commands.`))
-	.catch(console.error);
+if (registerScope === 'local') {
+  local();
+} else if (registerScope === 'global' || registerScope === undefined) {
+  global();
+}
+
+function global() {
+  if (CLIENT_ID == undefined) throw TypeError('CLIENT_ID missing');
+  rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })
+    .then(_ => console.log(`Successfully registered ${commands.length} application commands globally.`))
+    .catch(console.error);
+}
+
+function local() {
+  if (CLIENT_ID == undefined) throw TypeError('CLIENT_ID missing');
+  if (CLIENT_GUILD_ID == undefined) throw TypeError('CLIENT_GUILD_ID missing');
+  rest.put(Routes.applicationGuildCommands(CLIENT_ID, CLIENT_GUILD_ID), { body: commands })
+    .then(_ => console.log(`Successfully registered ${commands.length} application commands locally.`))
+    .catch(console.error);
+}

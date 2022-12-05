@@ -5,6 +5,7 @@ let token, clientId, guildId;
 async function start() {
   const inquirer = await import('inquirer')
   const fs = await import('node:fs');
+
   await getToken(inquirer.default);
   await getClientId(inquirer.default);
   await getGuildId(inquirer.default);
