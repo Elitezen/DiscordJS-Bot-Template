@@ -1,4 +1,4 @@
-import { MessageContextMenuCommandInteraction, REST, Routes, UserContextMenuCommandInteraction } from 'discord.js';
+import { REST, Routes } from 'discord.js';
 import { config } from 'dotenv'; 
 import { join } from 'node:path';
 import { readdirSync } from 'node:fs';

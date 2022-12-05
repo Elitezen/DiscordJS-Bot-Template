@@ -49,7 +49,7 @@ async function createEnv(writeFile) {
       process.exit(1);
     }
     
-    console.log(`Success
+    console.log(`\n✓ Success
       npm run commands
       npm start
     `);
