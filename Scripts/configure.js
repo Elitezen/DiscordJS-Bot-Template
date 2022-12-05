@@ -1,18 +1,17 @@
 #!/usr/bin/env node
 
-import inquirer from "inquirer";
-import { writeFile } from "node:fs";
-
 let token, clientId, guildId;
 
 async function start() {
-  await getToken();
-  await getClientId();
-  await getGuildId();
-  await createEnv();
+  const inquirer = await import('inquirer')
+  const fs = await import('node:fs');
+  await getToken(inquirer.default);
+  await getClientId(inquirer.default);
+  await getGuildId(inquirer.default);
+  await createEnv(fs.writeFile);
 }
 
-async function getToken() {
+async function getToken(inquirer) {
   console.log("\nFor pasting, If CTRL+V is not working: try right clicking in input fields.\n")
   const answers = await inquirer.prompt({
     name: 'token',
@@ -23,7 +22,7 @@ async function getToken() {
   token = answers.token;
 }
 
-async function getClientId() {
+async function getClientId(inquirer) {
   const answers = await inquirer.prompt({
     name: 'clientId',
     type: 'input',
@@ -33,7 +32,7 @@ async function getClientId() {
   clientId = answers.clientId;
 }
 
-async function getGuildId() {
+async function getGuildId(inquirer) {
   const answers = await inquirer.prompt({
     name: 'guildId',
     type: 'input',
@@ -43,16 +42,14 @@ async function getGuildId() {
   guildId = answers.guildId;
 }
 
-async function createEnv() {
+async function createEnv(writeFile) {
   writeFile('.env', `CLIENT_TOKEN=${token}\nCLIENT_ID=${clientId}\nCLIENT_GUILD_ID=${guildId}`, err => {
     if (err) {
       console.error(err);
       process.exit(1);
     }
     
-    console.log(`
-      Success
-
+    console.log(`Success
       npm run commands
       npm start
     `);
