@@ -18,7 +18,7 @@ const event:CustomClientEvent = {
         console.error(error);
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
       }
-    } else if (interaction.isUserContextMenuCommand()) {
+    } else if (interaction.isUserContextMenuCommand() || interaction.isMessageContextMenuCommand()) {
       const command = (interaction.client as CustomClient).contextMenuCommands
         .get(interaction.commandName) as CustomClientContextMenu<UserContextMenuCommandInteraction | MessageContextMenuCommandInteraction>;
 
